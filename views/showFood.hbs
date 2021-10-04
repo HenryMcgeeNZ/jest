@@ -1,0 +1,105 @@
+<section id="oneFood">
+
+    <h1> {{thisfood.name}} </h1>
+    <p id="foodid" hidden>{{thisfood._id}}</p>
+    <section id="oneFood-details">
+        <section id="oneFood-picture">
+            <img class="detailsPage" src="https://source.unsplash.com/{{thisfood.photo}}" alt="hosted by Unsplash">
+        </section>
+
+        <section id="oneFood-text">
+            <p id="description">{{thisfood.description}}</p>
+            
+            <table>
+                <tr><td>calories:</td><td>{{thisfood.calories}}</td></tr>
+                <tr><td>fat:</td><td>{{thisfood.fat}}g</td></tr>
+                <tr><td>protein:</td><td>{{thisfood.protein}}g</td></tr>
+                {{#if thisfood.vegan}}<tr style="color:green"><td>vegan:</td><td>&#10003</td></tr>{{/if}}
+                {{#if thisfood.organic}}<tr style="color:green"><td>organic:</td><td>&#10003</td></tr>{{/if}}
+            </table>
+            
+            {{#if loggedin}}<a id="favourite" title="favourite: requires login" onclick="showModal()">&#9829;</a>{{/if}}
+
+        </section>
+    </section>
+
+</section>
+
+
+
+<!-- show this modal when Favourite button is clicked -->
+<div id="favouriteModal" class="modal-background">
+  <div class="modal-foreground">
+    <p id="favouritesMessage">You've added this food to your favourites!</p>
+    <p><span style="font-size: 40px" onclick="closeModal()">&times;</span></p>
+  </div>
+</div>
+
+<script>
+    function showModal() {
+        var modal = document.getElementById("favouriteModal");
+        // create a new Array if it does not exist and put Food ID in it.
+        if (localStorage.getItem("favourites") === null){
+            localStorage.setItem("favourites", JSON.stringify([document.getElementById("foodid").innerHTML]))
+        }
+        else{ // get list of Foods in localStorage
+            currentFavourites = JSON.parse(localStorage.getItem("favourites"));
+            thisFavourite = document.getElementById("foodid").innerHTML;
+            // check if food is not already there
+            let found =false;
+            for (let i = 0; i < currentFavourites.length; ++i) {        
+                let foodid = currentFavourites[i];                
+                if(foodid.localeCompare(thisFavourite) == 0){
+                    found = true;
+                    break;
+                }
+            }
+            // if food is in the array, tell the user
+            if(found){
+                document.getElementById("favouritesMessage").innerHTML = "The item is in your favourites list!";    
+            }
+            else{ // else add it to the array in localStorage
+                currentFavourites.push(thisFavourite);
+                localStorage.setItem("favourites", JSON.stringify(currentFavourites));
+            }
+        }
+        modal.style.display = 'block'
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("favouriteModal");
+        modal.style.display = "none";
+    }
+
+            /*
+        if (sessionStorage.getItem("favourites") === null){
+            sessionStorage.setItem("favourites", JSON.stringify([document.getElementById("foodid").innerHTML]))
+        }
+        else{
+            currentFavourites = JSON.parse(sessionStorage.getItem("favourites"));
+            thisFavourite = document.getElementById("foodid").innerHTML;
+
+            let found =false;
+
+            for (let i = 0; i < currentFavourites.length; ++i) {
+                
+                let foodid = currentFavourites[i];
+                
+                if(foodid.localeCompare(thisFavourite) == 0){
+                    found = true;
+                    break;
+                }
+            }
+            
+            if(found){
+                document.getElementById("favouritesMessage").innerHTML = "The item is in your favourites list!";    
+            }
+            else{
+                currentFavourites.push(thisFavourite);
+                sessionStorage.setItem("favourites", JSON.stringify(currentFavourites));
+            }
+            
+
+        }
+        */
+</script>

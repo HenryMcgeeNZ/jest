@@ -1,0 +1,17 @@
+<section id="foodList">
+
+    <form method="post" action="/search">
+        <input type="search" size="10" name="foodName" placeholder="start typing" pattern="[A-Za-z]*" title="letters only" autofocus>
+        <label for="vegan"> v<span class="bigScreen">egan</span> </label> 
+        <input type="checkbox" name="vegan">
+        <label for="organic"> o<span class="bigScreen">rganic</span> </label> 
+        <input type="checkbox" name="organic">
+        <input type="submit" value="Search">
+    </form>
+
+    
+    {{#listfood foods}}{{/listfood}}
+
+
+    
+</section>

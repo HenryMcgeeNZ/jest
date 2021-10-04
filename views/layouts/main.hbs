@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Buddy</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap" rel="stylesheet"> 
+
+    <script>
+        function saveFavs(){
+            // get the food object IDs from local storage
+            document.getElementById("favs").value = JSON.parse(JSON.stringify(localStorage.getItem("favourites")));
+
+            //alert( document.getElementById("favs").value)
+            // clear local storage (WARNING: I am assuming that only my app is using the local storage!!!)
+            localStorage.clear();
+            
+
+            // submit a hidden form with the food ids. You could use fetch to submit the data to API as well.
+            document.getElementById("logoutform").submit();
+
+            
+                        
+        }        
+    </script>
+</head>
+<body>
+    <header>
+        <h1> <a href="/">Food Buddy!</a> </h1>        
+    </header>
+    <main>
+        <section style="text-align:right;">
+            <a href="/user">Login</a>&nbsp; | &nbsp;
+            <a href="/user/signup">Signup</a>&nbsp; | &nbsp;
+            <a href="javascript:void(0);" onclick="saveFavs();">Logout</a>{{!&nbsp; | &nbsp;}}
+            {{!<a href="/favourites">My Favourites</a>}}
+        </section>
+        {{{body}}}
+    </main>
+    <footer>
+        <p>an INFO30005 project</p>
+    </footer>
+    <form method="post" action="/user/logout" id="logoutform">
+        <input type="hidden" name="favs" id="favs"/>
+    </form>
+    
+</body>
+</html>

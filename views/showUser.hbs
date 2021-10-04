@@ -1,0 +1,36 @@
+<h1> {{thisuser.name}} </h1>
+<table>
+    <tr><td>email:</td><td>{{thisuser.email}}</td></tr>
+    <tr><td>password:</td><td>{{thisuser.password}}</td></tr>
+    <tr><td>nameFamily:</td><td>{{thisuser.nameFamily}}</td></tr>
+    <tr><td>nameGiven:</td><td>{{thisuser.nameGiven}}</td></tr>
+    <tr><td>gender:</td><td>{{thisuser.gender}}</td></tr>
+    <tr><td>yearBorn:</td><td>{{thisuser.yearBorn}}</td></tr>
+</table>
+
+<h2>Favourites list:</h2>
+<table>
+
+    {{#each thisuser.favourites}}
+
+    <tr>
+        <td> <a href="/food/{{this.foodId}}"> {{this.foodId}} </a> </td>
+    </tr>
+
+    {{/each}}
+    
+</table>
+
+<h2>When foods were eaten:</h2>
+<table>
+
+    {{#each thisuser.eaten}}
+
+    <tr>
+        <td> <a href="/food/{{this.foodId}}"> {{this.foodId}} </a> </td>
+        <td> {{this.when}} </td>
+    </tr>
+
+    {{/each}}
+    
+</table>
